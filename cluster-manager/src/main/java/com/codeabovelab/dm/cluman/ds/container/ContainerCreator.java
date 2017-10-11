@@ -243,13 +243,15 @@ public class ContainerCreator {
     private String[] filterEnv(Collection<String> env) {
         log.info("All env {}", env);
         Set<String> filter = new HashSet<>();
-        String[] constraints = env.stream().filter(e -> {
-            String before = before(e, '=');
-            if (before.contains("constraint")) {
-                return true;
-            }
-            return filter.add(before(e, '='));
-        }).toArray(String[]::new);
+        String[] constraints = env.stream()
+                .filter(e -> e.contains("="))
+                .filter(e -> {
+                    String before = before(e, '=');
+                    if (before.contains("constraint")) {
+                        return true;
+                    }
+                    return filter.add(before(e, '='));
+                }).toArray(String[]::new);
         log.info("Filtered env {}", Arrays.toString(constraints));
         return constraints;
     }
