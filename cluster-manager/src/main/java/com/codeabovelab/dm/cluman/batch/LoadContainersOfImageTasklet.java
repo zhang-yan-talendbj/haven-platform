@@ -135,6 +135,7 @@ public class LoadContainersOfImageTasklet {
             }
             sb.append(container.getId());
         }
+        log.info(sb.toString());
         context.fire(sb.toString());
     }
 }
