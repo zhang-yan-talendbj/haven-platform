@@ -92,6 +92,7 @@ public class LoadContainersOfImageTasklet {
             }
 
             if(!predicate.test(processedContainer)) {
+                context.fire("Container skipped by filter: " + container.getId());
                 continue;
             }
 
