@@ -103,6 +103,8 @@ public class LoadContainersOfImageTasklet {
             if(targetSize < 1) {
                 targetSize = 1;
             }
+            log.info("Containers count: {}, percentage: {}, will be updated: {}",
+                    processedContainers.size(), percentage, targetSize);
             // we can reduce size of containers with some random alg., but it is necessary?
             while(processedContainers.size() > targetSize) {
                 processedContainers.remove(0);
