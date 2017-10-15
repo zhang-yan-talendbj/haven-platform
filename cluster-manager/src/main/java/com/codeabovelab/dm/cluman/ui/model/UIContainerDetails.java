@@ -18,6 +18,8 @@ package com.codeabovelab.dm.cluman.ui.model;
 
 import com.codeabovelab.dm.cluman.cluster.docker.model.ContainerDetails;
 import com.codeabovelab.dm.cluman.cluster.docker.model.ContainerState;
+import com.codeabovelab.dm.cluman.cluster.docker.model.HostConfig;
+import com.codeabovelab.dm.cluman.cluster.docker.model.RestartPolicy;
 import com.codeabovelab.dm.cluman.model.ContainerSource;
 import com.codeabovelab.dm.cluman.model.DockerContainer;
 import com.codeabovelab.dm.cluman.source.ContainerSourceFactory;
@@ -64,6 +66,12 @@ public class UIContainerDetails extends ContainerSource implements UiContainerIf
         setCreated(container.getCreated());
         setStarted(state.getStartedAt());
         setFinished(state.getFinishedAt());
+        HostConfig hostConfig = container.getHostConfig();
+        if (hostConfig != null) {
+            RestartPolicy restartPolicy = hostConfig.getRestartPolicy();
+            setRestart(restartPolicy != null ? restartPolicy.toString() : null);
+            setPublishAllPorts(Boolean.TRUE.equals(hostConfig.getPublishAllPorts()));
+        }
         return this;
     }
 }
